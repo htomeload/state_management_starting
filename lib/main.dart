@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:state_management_starting/counter_view.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    ProviderScope(
+      child: MyApp(),
+    ),
   );
 }
 

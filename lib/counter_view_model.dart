@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CounterViewModel with ChangeNotifier {
+final stateProvider = AutoDisposeChangeNotifierProvider<CounterViewModel>(
+  (ref) => CounterViewModel(),
+);
+
+class CounterViewModel extends ChangeNotifier {
   int _counter = 0;
-  int get count => _counter;
+  int get counter => _counter;
 
-  void increment() {
+  void add() {
     _counter++;
     notifyListeners();
   }
