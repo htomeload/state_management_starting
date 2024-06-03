@@ -1,25 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_management_starting/counter_view_model.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:state_management_starting/counter.dart';
 
-class CounterView extends ConsumerWidget {
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(stateProvider);
+class CounterView extends StatefulWidget {
+  const CounterView({super.key});
+
+  @override
+  State<CounterView> createState() => _CounterViewState();
+}
+
+class _CounterViewState extends State<CounterView> {
+  final Counter counter = Counter();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              counter.reset();
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
         title: Text("State management"),
       ),
-      body: Center(
-        child: Text(
-          provider.counter.toString(),
-          style: TextStyle(fontSize: 50.0),
+      body: Observer(
+        builder: (context) => Center(
+          child: Text(
+            counter.value.toString(),
+            style: TextStyle(fontSize: 150.0),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {
-          provider.add();
-        },
+        onPressed: () => counter.increment(),
       ),
     );
   }
