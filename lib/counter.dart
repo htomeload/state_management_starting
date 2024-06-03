@@ -17,3 +17,6 @@ abstract class CounterBase with Store {
     value = 0;
   }
 }
+
+// Use command below to watch change in this file and let it auto generate code.
+// flutter packages pub run build_runner watch
